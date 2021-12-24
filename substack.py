@@ -50,13 +50,16 @@ def run(email, password, substack_publish_url, title, sub_title, message):
     # enter the post
     actions.append(ElementAction("enter post title", By.ID, "post-title", True, title))
     actions.append(ElementAction("enter the subtitle", By.CLASS_NAME, "subtitle", True, sub_title))
+    actions.append(ElementAction("select menu", By.XPATH, "//div[contains(text(),'More')]", True, None))
+    actions.append(ElementAction("select code block", By.XPATH, "//span[contains(text(),'Code block')]", True, None))
     actions.append(ElementAction("enter content of message", By.CLASS_NAME, "ProseMirror", True, message))
     actions.append(ElementAction("click the publish button", By.ID, "publish", True, None, 5))
-    actions.append(ElementAction("click publish with xpath", By.XPATH, "//span[contains(text(),'Publish')]", True, None, 5))
+    # actions.append(ElementAction("click publish with xpath", By.XPATH, "//span[contains(text(),'Publish')]", True, None, 5))
     actions.append(ElementAction("send to everyone", By.XPATH, "//button[contains(text(),'Send to everyone now')]", True, None))
 
     for a in actions:
         a.run(driver)
+        # time.sleep(5)
 
 def main():
     email = os.environ["SUBSTACK_EMAIL"]
@@ -70,5 +73,5 @@ def main():
 
     run(email, password, substack_publish_url, title, sub_title, message)
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
