@@ -63,7 +63,7 @@ def run_record_actions(actions):
     for action in actions:
         action.run()
 
-def main():
+def run(config):
     # Init the Database
     db = sqlite3.connect('securities.db')
     cur = db.cursor()
@@ -80,7 +80,7 @@ def main():
     finage_stock_config = {
         "url": FINAGE_STOCK_URL,
         "type": "stock",
-        "api_key": os.environ['FINAGE_API_KEY'],
+        "api_key": config['FINAGE_API_KEY'],
         "mapping": {
             "AT&T": "T",
             "Verizon": "VZ",
@@ -92,7 +92,7 @@ def main():
     finage_index_config = {
         "url": FINAGE_INDEX_URL,
         "type": "index",
-        "api_key": os.environ['FINAGE_API_KEY'],
+        "api_key": config['FINAGE_API_KEY'],
         "mapping": {
             "Dow Jones": "DJI",
             "Nasdaq-100": "NDX"
@@ -114,5 +114,3 @@ def main():
     # Execute actions and close DB
     run_record_actions(actions)
     db.close()
-
-main()
