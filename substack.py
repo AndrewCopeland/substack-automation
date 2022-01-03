@@ -32,8 +32,8 @@ class ElementAction:
         print("Ending '{}'".format(self.name))
         time.sleep(self.sleep)
 
-def run(email, password, substack_publish_url, title, sub_title, message):
-    driver = webdriver.Chrome()
+def run(driver_path, email, password, substack_publish_url, title, sub_title, message):
+    driver = webdriver.Chrome(executable_path=driver_path)
     driver.implicitly_wait(15)
     driver.get("https://substack.com/sign-in?redirect=%2F")
     actions = [] 
@@ -60,18 +60,3 @@ def run(email, password, substack_publish_url, title, sub_title, message):
     for a in actions:
         a.run(driver)
         # time.sleep(5)
-
-def main():
-    email = os.environ["SUBSTACK_EMAIL"]
-    password = os.environ["SUBSTACK_PASSWORD"]
-    substack_publish_url = os.environ["SUBSTACK_PUBLISH_URL"]
-
-    title = os.environ["SUBSTACK_TITLE"]
-    sub_title = os.environ["SUBSTACK_SUB_TITLE"]
-    f = open(os.environ["SUBSTACK_MESSAGE_FILE"], 'r')
-    message = f.read()
-
-    run(email, password, substack_publish_url, title, sub_title, message)
-
-# if __name__ == "__main__":
-#     main()
